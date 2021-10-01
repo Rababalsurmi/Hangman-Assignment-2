@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-public class WordList : List<string>  
+public class WordList : List<string>
 {
 }
 public class Hangman
@@ -58,13 +58,9 @@ public class Hangman
                     int numGuessesInt = -1; 
                     while (numGuessesInt == -1)
 
-                    {
-                        
+                    { 
                         UserpickGuesses(ref numGuessesInt);
                     }
-
-
-
 
                     //string word = RandomWord();
 
@@ -153,7 +149,7 @@ public class Hangman
     }
 
     //private static string ShowWord(List<char> guessedCharacters, string word)
-    private static string ShowWord(char [] guessedCharacters, string word)
+    private static string ShowWord(char[] guessedCharacters, string word)
     {
         string returnedWord = ""; 
         if (guessedCharacters.Count() == 0)
@@ -170,7 +166,7 @@ public class Hangman
             foreach (char character in guessedCharacters)
             {
                 if (character == letter) 
-                {  
+                {
                     returnedWord += character + " ";
                     letterMatch = true;
                     break;
@@ -186,12 +182,15 @@ public class Hangman
             }
         }
         return returnedWord;
+        
     }
 
 
     static void LetterGuess(char[] guessedCharacters, string word, string wordToDisplay, ref int numGuessesLeft)
     {
         string letters = "";
+        //char[] correctLetters = new char ['a'];
+
         foreach (char letter in guessedCharacters)
         {
             letters += " " + letter;
@@ -200,7 +199,7 @@ public class Hangman
         Console.ForegroundColor = ConsoleColor.Black;
         Console.WriteLine("Guess for a letter between A-Ö");
         Console.ForegroundColor = ConsoleColor.Black;
-        Console.Write("The Swedish word consists of {0} letters Word: ", word.Length);
+        Console.Write("The Swedish word consists of {0} letters: ", word.Length);
         Console.WriteLine(wordToDisplay);
         Console.ForegroundColor = ConsoleColor.Black;
         Console.WriteLine("Used Letters: " + letters);
@@ -209,7 +208,10 @@ public class Hangman
 
         Console.ForegroundColor = ConsoleColor.DarkBlue;
         string guess = Console.ReadLine();
-        char guessedLetter = 'a';
+        StringBuilder guessedLetter;
+        StringBuilder strB = new StringBuilder();
+
+        //StringBuilder guessedLetter;
 
 
         if (guess.Length > 1)
@@ -225,9 +227,11 @@ public class Hangman
         }
         else
         {
+            //guessedLetter.Append(guess + " ");
             try
             {
-                guessedLetter = Convert.ToChar(guess);
+                 guessedLetter.Append(guess + " ");
+                //guessedLetter = Convert.ToChar(guess);
                 if (!char.IsLetter(guessedLetter))
                 {
                     throw new Exception();
@@ -237,7 +241,6 @@ public class Hangman
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Error[3]: Enter one LETTER or guess the WORD!");
-
             }
 
             bool repeat = false;
@@ -252,16 +255,13 @@ public class Hangman
             }
             if (repeat == false)
             {
-                for (int runs = 0; runs < 1; runs++)
-                {
-                    guessedCharacters[runs] = guessedLetter;
-                }
-                //guessedCharacters.add(guessedLetter)  ;
+
+                //guessedCharacters.add(guessedLetter);
+                strB.Append(guessedLetter);
+               
                 numGuessesLeft -= 1;
             }
         }
-    
-
     }
 
     static void UserReplay()
